@@ -48,13 +48,7 @@ console.log(humanChoice);
 gameScore();
 
 function playGame(){
-    if (humanScore || computerScore == 5) {
-        if (humanScore == 5){
-            console.log("You win! 5 wins total!")
-        } else {
-            console.log("Computer scores 5, you LOSE! LOSER!!!!")
-        }
-    } else {
+    if (humanScore || computerScore !== 5) {
     function playRound(humanChoice, computerChoice){
         if (humanChoice === computerChoice) {
             console.log("DRAW!!");
@@ -82,13 +76,14 @@ function playGame(){
             console.log("Your scissors beats paper, nice!");
             humanScore++;
             return gameScore()
-        } else {
-            console.log("Invalid choices");
+        } else if (humanScore == 5) {
+            console.log("Winner winner chicken dinner! You won! 5 pts!");
+            return gameScore()
+        } else if (computerScore == 5) {
+            console.log("You lose loser1 Computer gets 5 pts");
+            return gameScore()
         }
     }
 }
-    
     playRound(humanSelection, computerSelection);
 }
-
-playGame();
