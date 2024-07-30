@@ -1,89 +1,41 @@
-console.log('Hello world!')
+humanScore = 0;
+computerScore = 0;
 
-function getComputerChoice() {
-    let x = Math.random() * 100;
-    console.log(x + " Random Number Gen");
-    if (x <= 33.33) {
-        console.log("computer picks rock");
-        return "rock";
-    } else if (x >= 33.34 && x <= 66.67) {
-        console.log("computer picks paper");
-        return "paper";
-    } else {
-        console.log("computer picks scissor");
-        return "scissor";
-    }
-}
+const button = document.querySelectorAll("button");
+let humanChoice = "";
+button.forEach(button => {
+    button.addEventListener('click', (event) => {
+        humanChoice = event.target.id;
+        console.log("Human picks: " + humanChoice);
+    });
+});
 
-function getHumanChoice() {
-    let userPrompt = window.prompt("Rock paper scissor say what?");
-    let lowerCaseInput = userPrompt.toLowerCase();
-    if (lowerCaseInput == "rock") {
-        console.log("player picks rock");
-        return "rock";
-    } else if (lowerCaseInput == "paper") {
-        console.log("player picks paper");
-        return "paper";
-    } else if (lowerCaseInput == "scissor") {
-        console.log("player picks scissor");
-        return "scissor";
-    } else {
-        console.log("You need to pick rock, paper, or scissor");
-    }
-}
+choices = ["rock", "paper", "scissors"];
 
-let humanChoice = undefined;
+const getComputerChoice = () => {
+    const randomChoice = Math.floor(Math.random() * choices.length);
+    return choices[randomChoice];
+};
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+const computerChoice = getComputerChoice();
+console.log("Computer picks: " + computerChoice);
 
-let humanScore = 0;
-let computerScore = 0;
-function gameScore(){
-    console.log("Human Score: " + humanScore + " | " + "Computer Score: " + computerScore);
-}
-
-console.log(humanChoice);
-
-gameScore();
-
-function playGame(){
-    if (humanScore || computerScore !== 5) {
-    function playRound(humanChoice, computerChoice){
-        if (humanChoice === computerChoice) {
-            console.log("DRAW!!");
-        } else if (humanChoice === "rock" && computerChoice === "paper") {
-            console.log("Your rock lost to paper, so sad.");
-            computerScore++;
-            return gameScore()
-        } else if (humanChoice === "rock" && computerChoice === "scissor") {
-            console.log("Your rock beats scissors, nice!");
-            humanScore++;
-            return gameScore()
-        } else if (humanChoice === "paper" && computerChoice === "rock") {
-            console.log("Your paper beats rock, nice!");
-            humanScore++;
-            return gameScore()
-        } else if (humanChoice === "paper" && computerChoice === "scissor") {
-            console.log("Your paper lost to scissors, you lose!");
-            computerScore++;
-            return gameScore()
-        } else if (humanChoice === "scissor" && computerChoice === "rock") {
-            console.log("Your scissors lost to rock, you lose, so sad :(");
-            computerScore++;
-            return gameScore()
-        } else if (humanChoice === "scissor" && computerChoice === "paper") {
-            console.log("Your scissors beats paper, nice!");
-            humanScore++;
-            return gameScore()
-        } else if (humanScore == 5) {
-            console.log("Winner winner chicken dinner! You won! 5 pts!");
-            return gameScore()
-        } else if (computerScore == 5) {
-            console.log("You lose loser1 Computer gets 5 pts");
-            return gameScore()
+function determineWinner(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        return "draw";
+    } else if (
+        (humanChoice === "rock" && computerChoice === "scissors") ||
+        (humanChoice === "paper" && computerChoice === "rock") ||
+        (humanChoice === "scissors" && computerChoice === "paper")) {
+            return "human";
+        } else {
+            return "computer";
         }
-    }
-}
-    playRound(humanSelection, computerSelection);
-}
+};
+
+// for (let round = 1; humanScore < 5 && computerScore < 5; round++) {
+//     return null;
+// }
+// execute at player's choice
+// for loop w/ condition playerScore = 5 win
+// learn more about loops
