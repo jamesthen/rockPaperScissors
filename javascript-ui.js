@@ -3,17 +3,23 @@ let computerScore = 0;
 let computerChoice = "";
 let playerChoice = "";
 
+const btn = document.querySelectorAll('button');
+const playerScoreMsg = document.getElementById('playerscore');
+const computerScoreMsg = document.getElementById('computerscore');
+const message = document.getElementById('message');
+
 const getComputerChoice = (e) => {
     const randomNum = Math.random() * 100;
     if (randomNum <= 33.3) {
-        computerChoice = "rock"
+        computerChoice = "rock";
+        return "rock";
     } else if (randomNum >= 66.6 ) {
-        computerChoice = "paper"
+        computerChoice = "paper";
+        return "paper";
     } else {
         computerChoice = "scissor";
+        return "scissor";
     };
-    console.log(`randomNum: ${randomNum}`);
-    console.log(`computerChoice: ${computerChoice}`);
 }
 
 const roundWinner = () => {
@@ -39,18 +45,17 @@ const roundWinner = () => {
 const playRound = (e) => {
 
     playerChoice = e.target.value;
+    playerScoreMsg.textContent = `Player picks ${playerChoice}`
     getComputerChoice();
-    console.log(`PlayerChoice: ${playerChoice}`);
+    computerScoreMsg.textContent = `Computer picks ${getComputerChoice()}`
     roundWinner(playerChoice, computerChoice);
     message.textContent = `Current scores: Player - ${playerScore} || Computer - ${computerScore}`;
-    console.log(`Current scores: Player - ${playerScore} || Computer - ${computerScore}`);
 
     if (playerScore === 5) {
-        console.log(`Player wins!`);
+        message.textContent = 'Player wins!';
         disableButtons();
     } else if (computerScore === 5) {
-        console.log('Sorry, the computer won the game.');
-        
+        message.textContent = 'Computer wins!';
         disableButtons();
     }
 };
@@ -61,11 +66,9 @@ const disableButtons = () => {
     btns.forEach(btn => btn.disabled = true);
 };
 
-const btn = document.querySelectorAll('button');
+
 btn.forEach(btn => btn.addEventListener('click', playRound));
-const playerScoreMsg = document.querySelector('#playerscore');
-const ComputerScoreMsg = document.querySelector('#computerscore');
-const message = document.querySelector('#message');
+
 
 
 // click roundStart
